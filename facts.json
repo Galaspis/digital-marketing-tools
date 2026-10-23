@@ -1,0 +1,14 @@
+{
+ "_about": "Facts the drift monitor checks this repo's docs against. 'banned' = old names that must not appear in README/CLAUDE.md/STATUS.md/docs; 'allow' = files exempt; 'ignore' = checks that are intentional here.",
+ "repo": "digital-marketing-tools",
+ "database": "SQLite (ledger and posts, in the data folder)",
+ "hosting": "OVH VPS (Docker + Caddy)",
+ "domain": "shivuk.gallab.top",
+ "url": "https://shivuk.gallab.top",
+ "services": [
+  "DataForSEO",
+  "Claude API",
+  "Meta Marketing API"
+ ],
+ "banned": []
+}

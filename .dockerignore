@@ -1,0 +1,17 @@
+node_modules
+.git
+.env
+.env.*
+!.env.example
+data
+social-agent/data
+social-agent/media
+social-agent/logs
+meta-ads-agent/logs
+**/.venv
+**/__pycache__
+**/.pytest_cache
+agentkit/agentkit.egg-info
+agentkit/build
+research
+.claude

@@ -1,0 +1,14 @@
+# Shivuk marketing hub. Install as /etc/caddy/sites/shivuk.caddy, then: sudo systemctl reload caddy
+# Behind the shared Google login: the tools spend API money.
+shivuk.gallab.top {
+    encode zstd gzip
+    header {
+        X-Robots-Tag "noindex, nofollow"
+        Strict-Transport-Security "max-age=31536000"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        -Server
+    }
+    import auth
+    reverse_proxy 127.0.0.1:3004
+}

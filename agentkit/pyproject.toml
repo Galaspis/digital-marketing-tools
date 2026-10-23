@@ -1,0 +1,13 @@
+[project]
+name = "agentkit"
+version = "0.1.0"
+description = "Shared pieces for the Digital Marketing Tools agent services: price book, cost ledger, turn context."
+requires-python = ">=3.11"
+dependencies = ["flask>=3.0"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["agentkit"]

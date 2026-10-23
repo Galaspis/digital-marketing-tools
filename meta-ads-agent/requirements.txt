@@ -1,0 +1,6 @@
+anthropic>=1.0
+facebook-business>=25.0
+python-dotenv>=1.0
+rich>=13.0
+flask>=3.0
+pytest>=8.0

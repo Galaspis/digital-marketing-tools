@@ -1,0 +1,47 @@
+name: Deploy shivuk.gallab.top
+# Push to main → the server rebuilds the container. Needs repo secrets VPS_SSH_KEY and VPS_HOST.
+# Secrets for the app itself live only in /srv/shivuk/.env on the server.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency: deploy
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Join the private network (Tailscale)
+        uses: tailscale/github-action@v3
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+      - name: SSH setup
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.VPS_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+      - name: Sync source
+        env: { H: "${{ secrets.VPS_HOST }}" }
+        run: |
+          rsync -az --delete --exclude .git --exclude node_modules --exclude '.venv' --exclude data \
+            --exclude social-agent/data --exclude social-agent/media --exclude '*/logs' --exclude research \
+            ./ deploy@$H:/srv/shivuk/src/
+          scp -q deploy/compose.yml deploy@$H:/srv/shivuk/compose.yml
+      - name: Rebuild container
+        env: { H: "${{ secrets.VPS_HOST }}" }
+        run: ssh deploy@$H 'cd /srv/shivuk && docker compose up -d --build 2>&1 | tail -3 && docker image prune -f >/dev/null'
+      - name: Caddy site
+        env: { H: "${{ secrets.VPS_HOST }}" }
+        run: |
+          scp -q deploy/shivuk.caddy deploy@$H:/tmp/shivuk.caddy
+          ssh deploy@$H 'sudo /usr/local/bin/caddy-site-install shivuk'
+      - name: Smoke test
+        env: { H: "${{ secrets.VPS_HOST }}" }
+        run: |
+          ssh deploy@$H 'sleep 8; curl -s -o /dev/null -m 10 -w "hub: %{http_code}\n" http://127.0.0.1:3004/; curl -s -o /dev/null -m 10 -w "meta agent: %{http_code}\n" http://127.0.0.1:3004/api/meta/status; curl -s -o /dev/null -m 10 -w "social agent: %{http_code}\n" http://127.0.0.1:3004/api/social/status'
+          code=$(curl -s -o /dev/null -m 15 -w "%{http_code}" https://shivuk.gallab.top/)
+          echo "shivuk.gallab.top → $code (401 = login gate, expected)"
+          test "$code" = "401"

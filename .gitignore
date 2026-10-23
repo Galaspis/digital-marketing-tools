@@ -1,0 +1,24 @@
+node_modules/
+.env
+
+# runtime/generated data
+data/
+
+# local dev launcher config
+.claude/launch.json
+
+# meta-ads-agent (Python tool)
+meta-ads-agent/.venv/
+meta-ads-agent/logs/
+__pycache__/
+.pytest_cache/
+
+# social-agent (Python tool)
+social-agent/.venv/
+social-agent/logs/
+social-agent/data/
+social-agent/media/
+
+# shared package build artefacts
+agentkit/agentkit.egg-info/
+agentkit/build/

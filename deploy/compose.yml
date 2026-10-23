@@ -1,0 +1,18 @@
+# Installed as /srv/shivuk/compose.yml on the server. Secrets in /srv/shivuk/.env (never in git).
+# Everything the app writes lives under /srv/shivuk/ so a rebuild never loses it.
+services:
+  shivuk:
+    build: ./src
+    container_name: shivuk
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      PORT: "4400"
+    ports:
+      - "127.0.0.1:3004:4400"
+    volumes:
+      - ./data:/app/data
+      - ./social-data:/app/social-agent/data
+      - ./media:/app/social-agent/media
+      - ./logs/meta:/app/meta-ads-agent/logs
+      - ./logs/social:/app/social-agent/logs

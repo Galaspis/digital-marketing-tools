@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shivuk</title>
+<link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%231d4ed8'/><path d='M12 42l12-14 10 8 10-14 8 10' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Heebo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="meta-agent.css">
+<link rel="stylesheet" href="social-agent.css">
+<link rel="stylesheet" href="spend.css">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<aside>
+  <a class="logo" href="#" onclick="window.dmtShow('home');return false"><svg viewBox="0 0 40 30" fill="none" stroke="#1d4ed8" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 24 13 12l8 7L31 6"/><path d="M24 6h7v7"/></svg><span class="brand"><b>Shivuk</b><small>Marketing lab</small></span></a>
+  <div class="ws" title="Client workspaces: planned"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 4v16M3 10h5"/></svg><span>Workspace</span><svg class="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></div>
+  <a class="tool active" id="nav-home" data-view="home"><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Overview</a>
+  <a class="tool" id="nav-social" data-view="social"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3M8 17h6"/></svg>Social Publisher</a>
+  <a class="tool" id="nav-meta" data-view="meta"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Meta Ads</a>
+  <a class="tool" id="nav-seo" data-view="seo"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Keyword Research</a>
+  <a class="tool" id="nav-approvals" data-view="approvals"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>Approvals<span class="count">0</span></a>
+  <a class="tool" id="nav-calendar" data-view="social" data-pane="calendar"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Calendar</a>
+  <a class="tool" id="nav-spend" data-view="spend"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h3"/></svg>Spend &amp; models</a>
+  <div class="spacer"></div>
+  <div class="divider"></div>
+  <a class="tool" id="nav-connections" data-view="connections"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.6.4l3-3a4 4 0 0 0-5.6-5.6l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.6-.4l-3 3a4 4 0 0 0 5.6 5.6L12.5 16.7"/></svg>Connections</a>
+  <a class="tool" id="nav-settings" data-view="settings"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</a>
+  <div class="user"><span class="avatar">G</span><span><b>Operator</b><small>Agency</small></span><svg class="chev" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75"><path d="m9 6 6 6-6 6"/></svg></div>
+</aside>
+
+<main data-view="home">
+  <header class="topbar">
+    <div class="crumbs"><span>Workspace</span><span>/</span><b id="crumb">Overview</b></div>
+    <div class="topbar-right">
+      <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="top-search" type="text" placeholder="Search anything..." aria-label="Search"></div>
+      <span class="mode-pill off" id="mode-pill">…</span>
+      <button class="icon-btn" id="bell" title="Approvals"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg><span class="badge"></span></button>
+      <span class="topdate" id="top-date"></span>
+    </div>
+  </header>
+
+  <!-- ============ Overview ============ -->
+  <section id="view-home">
+    <div class="ov-greet"><h1 id="hm-greet">Good afternoon.</h1><p>What would you like to create today?</p></div>
+    <div class="card ov-idea">
+      <h3>Your next idea starts here</h3>
+      <div class="ov-prompt">
+        <textarea id="ov-input" rows="1" dir="auto" placeholder="Describe a post, a campaign, or a question about your ads..."></textarea>
+        <div class="ov-prompt-bar"><button class="plus" title="Attach media (in the Social Publisher)">+</button><button class="btn" id="ov-go">Start creating ↗</button></div>
+      </div>
+      <div class="ov-quick" id="ov-quick">
+        <button data-view="social" data-pane="chat" data-q="Draft a Facebook post about our agency's Meta ads service for small businesses in Israel. Hebrew, friendly, one call to action, no hashtags."><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Draft a post</button>
+        <button data-view="meta" data-pane="chat" data-q="Which campaign is wasting money in the last 7 days, and why?"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Analyze my ads</button>
+        <button data-view="seo"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Find keywords</button>
+      </div>
+    </div>
+    <div class="ov-grid">
+      <div class="ov-main">
+        <div class="kpi-strip">
+          <div class="kpi"><span class="ico"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg></span><div><div class="l">Draft posts</div><div class="v" id="kpi-drafts">0</div></div></div>
+          <div class="kpi"><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="l">Awaiting approval</div><div class="v" id="kpi-approvals">0</div></div></div>
+          <div class="kpi"><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div><div class="l">Scheduled</div><div class="v" id="kpi-scheduled">0</div></div></div>
+          <div class="kpi"><span class="ico"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></span><div><div class="l">Monthly spend</div><div class="v" id="kpi-spend">$0</div></div></div>
+        </div>
+        <div class="card ov-ws">
+          <h3>Your workspace</h3>
+          <div class="tabs2" id="ov-tabs"><button data-tab="activity" class="active">Recent activity</button><button data-tab="drafts">Drafts</button><button data-tab="scheduled">Scheduled</button></div>
+          <div id="ov-ws"></div>
+          <div class="ov-control"><svg viewBox="0 0 24 24"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z"/></svg><b>You're in control</b><span class="sep"></span>Review every post and campaign before it goes live.</div>
+        </div>
+      </div>
+      <div class="ov-rail">
+        <div class="card setup">
+          <h3>Finish setting up <span id="ov-setup-count"></span></h3>
+          <div class="progress" id="ov-progress"></div>
+          <ul class="setup-list" id="ov-setup"></ul>
+        </div>
+        <div class="promo">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z" fill="currentColor"/></svg></div>
+          <div><div class="k">Plan your next move</div><div class="t">Turn a marketing goal into a first draft.</div><a id="ov-promo-link">Open Social Publisher ↗</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-seo">
+  <header class="top">
+    <div><div class="eyebrow">Do · search</div><h2>SEO Keyword Research</h2></div>
+    <div class="session-cost">Session cost — DataForSEO: <b id="s-dfs">$0.0000</b> · Claude: <b id="s-claude">$0.0000</b> · Total: <b id="s-total">$0.0000</b></div>
+  </header>
+  <div class="banner warn" id="banner"></div>
+
+  <div class="tabs">
+    <button id="tab-vol" class="active">Keyword Volumes</button>
+    <button id="tab-dom">Domain Ideas</button>
+    <button id="tab-mykw">⭐ My Keywords <span id="mykw-count"></span></button>
+    <button id="tab-hist">History</button>
+  </div>
+
+  <!-- ============ Volumes panel ============ -->
+  <section class="panel" id="panel-vol">
+    <div class="row">
+      <div class="grow">
+        <label>Keywords — one per line (Hebrew and English both work)</label>
+        <textarea id="kw-input" placeholder="keyword one&#10;keyword two&#10;a phrase in English"></textarea>
+        <div class="hint">Up to 700 keywords per run. One DataForSEO call covers the whole list.</div>
+      </div>
+      <div class="w160">
+        <label>Market (SEO dataset)</label>
+        <select id="kw-loc">
+          <option value="2376" selected>Israel</option>
+          <option value="2840">United States</option>
+          <option value="2826">United Kingdom</option>
+          <option value="2276">Germany</option>
+          <option value="2250">France</option>
+        </select>
+      </div>
+      <div class="w160">
+        <label>Language filter</label>
+        <select id="kw-lang">
+          <option value="" selected>Any</option>
+          <option value="he">Hebrew</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div><button class="btn" id="kw-run">Get volumes</button></div>
+    </div>
+    <div class="spin" id="kw-spin">Querying Google Ads data…</div>
+    <div class="err" id="kw-err"></div>
+    <div id="kw-results"></div>
+    <div class="costline" id="kw-cost"></div>
+    <div class="row" style="margin-top:16px">
+      <div><button class="btn alt" id="kw-csv" disabled>Download CSV (free)</button></div>
+      <div class="grow">
+        <input type="text" id="kw-context" placeholder="Optional context for Claude, e.g. 'freight forwarder site, deciding service-page keywords'">
+      </div>
+      <div>
+        <button class="btn alt" id="kw-reco" disabled>Ask Claude — paid API run</button>
+        <div class="hint" style="text-align:center">~$0.05–0.25 · billed only when clicked</div>
+      </div>
+    </div>
+    <div class="spin" id="kw-reco-spin">Claude is analyzing…</div>
+    <div class="reco" id="kw-reco-out"></div>
+  </section>
+
+  <!-- ============ Domain panel ============ -->
+  <section class="panel" id="panel-dom" style="display:none">
+    <div class="row">
+      <div class="grow">
+        <label>Domain or page URL (yours or a competitor's)</label>
+        <input type="text" id="dom-input" placeholder="example-company.co.il  ·  or a specific page: competitor.co.il/some-service">
+        <div class="hint">Google Ads extracts keyword ideas from the content — volumes and CPC included in the same call.</div>
+      </div>
+      <div class="w160">
+        <label>Scope</label>
+        <select id="dom-scope">
+          <option value="site" selected>Whole site</option>
+          <option value="page">Single page</option>
+        </select>
+      </div>
+      <div class="w160">
+        <label>Market (SEO dataset)</label>
+        <select id="dom-loc">
+          <option value="2376" selected>Israel</option>
+          <option value="2840">United States</option>
+          <option value="2826">United Kingdom</option>
+          <option value="2276">Germany</option>
+          <option value="2250">France</option>
+        </select>
+      </div>
+      <div class="w160">
+        <label>Language filter</label>
+        <select id="dom-lang">
+          <option value="" selected>Any</option>
+          <option value="he">Hebrew</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <div><button class="btn" id="dom-run">Find keywords</button></div>
+    </div>
+    <div class="spin" id="dom-spin">Extracting keyword ideas from the domain…</div>
+    <div class="err" id="dom-err"></div>
+    <div id="dom-results"></div>
+    <div class="costline" id="dom-cost"></div>
+    <div class="row" style="margin-top:16px">
+      <div><button class="btn alt" id="dom-csv" disabled>Download CSV (free)</button></div>
+      <div><button class="btn alt" id="dom-copy" disabled>Send keywords to Volumes tab</button></div>
+      <div class="grow">
+        <input type="text" id="dom-context" placeholder="Optional context for Claude, e.g. 'this is my client's site' or 'this is a competitor'">
+      </div>
+      <div>
+        <button class="btn alt" id="dom-reco" disabled>Ask Claude — paid API run</button>
+        <div class="hint" style="text-align:center">~$0.05–0.25 · billed only when clicked</div>
+      </div>
+    </div>
+    <div class="spin" id="dom-reco-spin">Claude is analyzing…</div>
+    <div class="reco" id="dom-reco-out"></div>
+  </section>
+
+  <!-- ============ My Keywords panel ============ -->
+  <section class="panel" id="panel-mykw" style="display:none">
+    <div class="row" style="justify-content:space-between">
+      <p class="hint" style="margin:0">Star ⭐ keywords in any result table to collect them here — your curated set for the website. Assign each to a target page, add notes, export when ready. Saved on disk (data/shortlist.json).</p>
+      <div><button class="btn alt" id="mykw-csv" disabled>Download shortlist CSV</button></div>
+    </div>
+    <div id="mykw-list"></div>
+  </section>
+
+  <!-- ============ History panel ============ -->
+  </section>
+
+  <!-- ============ Meta Ads Agent ============ -->
+  <section id="view-meta" data-pane="chat">
+    <header class="top">
+      <div><div class="eyebrow">Do · paid media</div><h2>Meta Ads</h2></div>
+      <div class="session-cost" id="ma-head"></div>
+    </header>
+    <p class="tool-intro">Read and analyse any ad account the token sees. Create, pause and re-budget only on the sandbox, each behind your approval.</p>
+    <div class="banner warn" id="ma-banner" style="display:none"></div>
+    <div class="tool-tabs"><button data-pane="chat" class="active">Chat</button><button data-pane="campaigns">Campaigns</button><button data-pane="log">Log</button></div>
+    <div class="ma-grid">
+      <div class="ma-card ma-chat" data-pane="chat">
+        <h3>Chat <span class="ma-tools"><select id="ma-model" title="Model for the next message"></select><button id="ma-new">New conversation</button><button id="ma-retry">Reconnect</button></span></h3>
+        <div class="ma-messages" id="ma-messages"></div>
+        <div class="ma-suggest" id="ma-suggest">
+          <button data-q="What is in this account? List campaigns with status, objective and budget.">What's in the account?</button>
+          <button data-q="Which campaign is wasting money in the last 7 days, and why?">Wasted spend, last 7 days</button>
+          <button data-q="Create a paused OUTCOME_TRAFFIC campaign called 'Test IL' with 20 ILS a day and one ad set targeting Israel, ages 25-45.">Create a test campaign</button>
+        </div>
+        <div class="ma-composer">
+          <textarea id="ma-input" dir="auto" placeholder="Ask about the campaigns, or tell the agent what to change. Enter sends, Shift+Enter for a new line."></textarea>
+          <button class="btn" id="ma-send">Send</button>
+        </div>
+      </div>
+      <div class="ma-side">
+        <div class="ma-card" data-pane="campaigns">
+          <h3>Campaigns <span class="ma-tools"><select id="ma-account"></select><label style="margin:0;font-weight:500;display:flex;gap:4px;align-items:center"><input type="checkbox" id="ma-archived"> archived</label><button id="ma-refresh">Refresh</button></span></h3>
+          <table class="ma-table" id="ma-campaigns"><thead><tr><th>Campaign</th><th>Status</th><th>Objective</th><th class="ma-num">Budget</th></tr></thead><tbody></tbody></table>
+        </div>
+        <div class="ma-card" data-pane="campaigns">
+          <h3>Details <span class="ma-tools"><select id="ma-preset">
+            <option value="today">today</option><option value="yesterday">yesterday</option><option value="last_7d" selected>last 7 days</option>
+            <option value="last_14d">last 14 days</option><option value="last_30d">last 30 days</option><option value="this_month">this month</option>
+            <option value="last_month">last month</option><option value="maximum">all time</option></select></span></h3>
+          <div id="ma-detail"></div>
+        </div>
+        <div class="ma-card" data-pane="log"><h3>Audit log</h3><ul class="ma-log" id="ma-log"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Social Publisher ============ -->
+  <section id="view-social" data-pane="chat">
+    <header class="top">
+      <div><div class="eyebrow">Do · social</div><h2>Social Publisher</h2></div>
+      <div class="session-cost" id="sa-head"></div>
+    </header>
+    <p class="tool-intro">Describe a post; the agent writes it and saves a draft. Publishing or scheduling always waits for your approval. Facebook Page and Instagram.</p>
+    <div class="banner warn" id="sa-banner" style="display:none"></div>
+    <div class="tool-tabs"><button data-pane="chat" class="active">Chat</button><button data-pane="calendar">Calendar</button><button data-pane="compose">Compose by hand</button><button data-pane="log">Log</button></div>
+    <div class="sa-grid">
+      <div class="ma-card ma-chat" data-pane="chat">
+        <h3>Chat <span class="ma-tools"><select id="sa-model" title="Model for the next message"></select><button id="sa-new">New conversation</button><button id="sa-retry">Reconnect</button></span></h3>
+        <div class="ma-messages" id="sa-messages"></div>
+        <div class="ma-suggest" id="sa-suggest">
+          <button data-q="What can I post to, and what is in the calendar?">What's in the calendar?</button>
+          <button data-q="Draft a Facebook post announcing that we now offer Meta ads management for small businesses in Israel. Hebrew, friendly, one call to action, no hashtags.">Draft a Facebook post</button>
+          <button data-q="Draft an Instagram photo post for tomorrow 18:00: three tips for better ad creatives. Hebrew, 3 short lines, 5 fitting hashtags. Generate a matching square image first.">Draft an Instagram post with an image</button>
+        </div>
+        <div class="ma-composer">
+          <textarea id="sa-input" dir="auto" placeholder="Describe the post you want, or ask about the calendar. Enter sends, Shift+Enter for a new line."></textarea>
+          <button class="btn" id="sa-send">Send</button>
+        </div>
+      </div>
+      <div class="sa-side">
+        <div class="ma-card" data-pane="compose">
+          <h3><span id="sa-form-title">Compose</span> <span class="ma-tools"><button id="sa-cancel-edit" style="display:none">Cancel edit</button></span></h3>
+          <div class="sa-form">
+            <div><label>Target</label><select id="sa-target"></select></div>
+            <div><label>Kind</label><select id="sa-kind"></select></div>
+            <div class="full"><label>Text / caption</label><textarea id="sa-text" dir="auto" placeholder="Write it, or let the agent draft it in chat."></textarea><div class="sa-count" id="sa-count"></div></div>
+            <div class="full" id="sa-link-wrap"><label>Link (Facebook link post)</label><input type="url" id="sa-link" placeholder="https://"></div>
+            <div class="full"><label>Media</label>
+              <div class="sa-actions"><input type="file" id="sa-file" accept="image/*,video/*" multiple style="font-size:13px"><button class="btn alt" id="sa-add-url" style="padding:7px 14px;font-size:13px">Add URL</button></div>
+              <div class="sa-hint" id="sa-media-hint"></div>
+              <div class="sa-media-list" id="sa-media-list"></div>
+              <div class="sa-gen" id="sa-gen">
+                <input type="text" id="sa-gen-prompt" placeholder="Or describe an image to generate (English works best)…">
+                <select id="sa-gen-size"><option value="1024x1024">square</option><option value="1536x1024">landscape</option><option value="1024x1536">portrait</option></select>
+                <select id="sa-gen-quality"><option value="low">low</option><option value="medium" selected>medium</option><option value="high">high</option></select>
+                <button class="btn alt" id="sa-gen-btn" style="padding:7px 14px;font-size:13px">Generate</button>
+                <div class="sa-hint" id="sa-gen-hint"></div>
+              </div>
+            </div>
+            <div><label>Schedule for (local time)</label><input type="datetime-local" id="sa-when"></div>
+            <div class="sa-actions full" style="margin-top:4px">
+              <button class="btn alt" id="sa-save">Save draft</button>
+              <button class="btn alt" id="sa-save-schedule">Save &amp; schedule</button>
+              <span class="spacer"></span>
+              <button class="btn" id="sa-save-publish">Save &amp; publish now</button>
+            </div>
+          </div>
+        </div>
+        <div class="ma-card" data-pane="calendar">
+          <h3>Calendar <span class="ma-tools"><button id="sa-refresh">Refresh</button></span></h3>
+          <div class="sa-tabs" id="sa-tabs"></div>
+          <div class="sa-list" id="sa-list"></div>
+        </div>
+        <div class="ma-card" data-pane="log"><h3>Audit log</h3><ul class="ma-log" id="sa-log"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Spend & models ============ -->
+  <section id="view-spend">
+    <header class="top">
+      <div><div class="eyebrow">See</div><h2>Spend &amp; models</h2></div>
+      <div class="session-cost" id="sp-head"></div>
+    </header>
+    <div class="banner warn" id="sp-banner" style="display:none"></div>
+    <div class="sp-top">
+      <div class="ma-card">
+        <h3>This month <span class="ma-tools"><select id="sp-month"></select><button id="sp-refresh">Refresh</button></span></h3>
+        <div class="sp-cap-body">
+          <div class="sp-big" id="sp-total">$0.00</div>
+          <div class="sp-capline" id="sp-capline"></div>
+          <div class="sp-bar"><div id="sp-bar-fill"></div></div>
+          <div class="sa-hint" id="sp-note">API spend only (Claude, OpenAI). Meta ad spend is separate and shows in the Meta Ads view.</div>
+        </div>
+      </div>
+      <div class="ma-card"><h3>By model</h3><table class="ma-table" id="sp-model"><thead><tr><th>Provider · model</th><th class="ma-num">Calls</th><th class="ma-num">Tokens in / out</th><th class="ma-num">USD</th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <div class="sp-grid">
+      <div class="ma-card"><h3>By service</h3><table class="ma-table" id="sp-service"><thead><tr><th>Service</th><th class="ma-num">Calls</th><th class="ma-num">USD</th></tr></thead><tbody></tbody></table></div>
+      <div class="ma-card"><h3>By action</h3><table class="ma-table" id="sp-action"><thead><tr><th>Action</th><th class="ma-num">Calls</th><th class="ma-num">USD</th></tr></thead><tbody></tbody></table></div>
+      <div class="ma-card"><h3>By day</h3><table class="ma-table" id="sp-day"><thead><tr><th>Day</th><th class="ma-num">Calls</th><th class="ma-num">USD</th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <div class="sp-grid">
+      <div class="ma-card"><h3>Cost per post</h3><table class="ma-table" id="sp-post"><thead><tr><th>Post</th><th class="ma-num">Rows</th><th class="ma-num">Images</th><th class="ma-num">USD</th></tr></thead><tbody></tbody></table></div>
+      <div class="ma-card"><h3>Cost per campaign</h3><table class="ma-table" id="sp-campaign"><thead><tr><th>Campaign</th><th class="ma-num">Rows</th><th class="ma-num">USD</th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <div class="ma-card" style="margin-top:14px"><h3>Price book <span class="ma-tools" id="sp-checked"></span></h3><table class="ma-table" id="sp-pricing"><thead><tr><th>Model</th><th>Kind</th><th class="ma-num">Input $/1M</th><th class="ma-num">Output $/1M</th><th class="ma-num">Cache read $/1M</th><th>Source</th></tr></thead><tbody></tbody></table></div>
+    <div class="ma-card" style="margin-top:14px"><h3>Latest rows</h3><table class="ma-table" id="sp-rows"><thead><tr><th>When</th><th>Service</th><th>Action</th><th>Model</th><th>Belongs to</th><th class="ma-num">USD</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="panel" id="panel-hist" style="display:none">
+    <p class="hint" style="margin-top:0">Every search is saved locally (data/runs.json). Re-running an identical search is served from here for $0.00. Claude recommendations are stored with their run.</p>
+    <div id="hist-list"></div>
+  </section>
+
+  <!-- ============ Approvals ============ -->
+  <section id="view-approvals">
+    <header class="top"><div><h2>Approvals</h2><p class="tool-intro">Everything an agent wants to publish, schedule or spend waits here until you say yes. The same cards appear inside each chat.</p></div></header>
+    <div class="ap-list" id="ap-list"></div>
+  </section>
+
+  <!-- ============ Connections ============ -->
+  <section id="view-connections">
+    <header class="top"><div><h2>Connections</h2><p class="tool-intro">Accounts and keys the agents work with. Keys live in one file, the root <code>.env</code>; the guides walk through each platform click by click.</p></div></header>
+    <div class="cx-grid" id="cx-grid"></div>
+  </section>
+
+  <!-- ============ Settings ============ -->
+  <section id="view-settings">
+    <header class="top"><div><h2>Settings</h2><p class="tool-intro">Current values, read from the running services. Change them in the root <code>.env</code> and restart <code>npm start</code>.</p></div></header>
+    <div class="card" style="margin-top:18px"><h3>Workspace &amp; limits</h3><ul class="kv" id="st-list"></ul></div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const fmt$ = (n) => "$" + (n ?? 0).toFixed(4);
+const fmtN = (n) => n == null ? "—" : n.toLocaleString();
+const session = { dfs: 0, claude: 0 };
+const state = { vol: [], dom: [], volRun: null, domRun: null };
+const fmtDate = (iso) => new Date(iso).toLocaleString();
+
+function addCost(kind, amount) {
+  session[kind] += amount || 0;
+  $("s-dfs").textContent = fmt$(session.dfs);
+  $("s-claude").textContent = fmt$(session.claude);
+  $("s-total").textContent = fmt$(session.dfs + session.claude);
+}
+
+window.addEventListener("DOMContentLoaded", () => refreshShortlist());
+fetch("/api/status").then(r => r.json()).then(s => {
+  const missing = [];
+  if (!s.dataforseo) missing.push("DataForSEO credentials (DATAFORSEO_USERNAME / DATAFORSEO_PASSWORD)");
+  if (!s.claude) missing.push("Claude API key (ANTHROPIC_API_KEY)");
+  if (missing.length) {
+    const b = $("banner");
+    b.textContent = "Setup needed — missing: " + missing.join(" and ") + ". Set the environment variables and restart the app.";
+    b.classList.add("warn");
+    b.style.display = "block";
+  }
+});
+
+// Tabs
+$("tab-vol").onclick = () => switchTab("vol");
+$("tab-dom").onclick = () => switchTab("dom");
+$("tab-hist").onclick = () => { switchTab("hist"); loadHistory(); };
+$("tab-mykw").onclick = () => { switchTab("mykw"); renderShortlist(); };
+function switchTab(t) {
+  for (const k of ["vol", "dom", "hist", "mykw"]) {
+    $("panel-" + k).style.display = t === k ? "" : "none";
+    $("tab-" + k).classList.toggle("active", t === k);
+  }
+}
+
+// ---- Shortlist (starred keywords) ----
+const LOC_NAMES = { 2376: "IL", 2840: "US", 2826: "UK", 2276: "DE", 2250: "FR" };
+let shortlist = []; // full items from server
+const shortKey = (kw, loc) => `${kw.toLowerCase()}|${loc}`;
+let shortMap = new Map(); // shortKey -> item
+
+async function refreshShortlist() {
+  shortlist = (await (await fetch("/api/shortlist")).json()).items;
+  shortMap = new Map(shortlist.map(i => [shortKey(i.keyword, i.location_code), i]));
+  $("mykw-count").textContent = shortlist.length ? `(${shortlist.length})` : "";
+  $("mykw-csv").disabled = shortlist.length === 0;
+}
+
+async function toggleStar(row, meta, mountId, rows, sortKey) {
+  const k = shortKey(row.keyword, meta.loc);
+  const existing = shortMap.get(k);
+  if (existing) {
+    await fetch("/api/shortlist/" + existing.id, { method: "DELETE" });
+  } else {
+    await fetch("/api/shortlist", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ row, location_code: meta.loc, language_code: meta.lang, source_run_id: meta.runId }),
+    });
+  }
+  await refreshShortlist();
+  renderTable(rows, mountId, sortKey, meta);
+}
+
+function renderTable(rows, mountId, sortKey, meta) {
+  if (sortKey) rows.sort((a, b) => (b[sortKey] ?? -1) - (a[sortKey] ?? -1));
+  const html = `<table><thead><tr><th style="width:34px">⭐</th>
+      <th data-k="keyword">Keyword</th><th data-k="volume">Monthly volume</th>
+      <th data-k="cpc">CPC (USD)</th><th data-k="competition_index">Competition</th>
+      <th data-k="high_bid">Top-of-page bid</th></tr></thead><tbody>` +
+    rows.map((r, i) => {
+      const starred = meta && shortMap.has(shortKey(r.keyword, meta.loc));
+      return `<tr>
+      <td><span data-star="${i}" style="cursor:pointer;font-size:16px;opacity:${starred ? 1 : 0.35}" title="${starred ? "Remove from My Keywords" : "Save to My Keywords"}">${starred ? "★" : "☆"}</span></td>
+      <td class="kw">${r.keyword}</td>
+      <td class="num">${fmtN(r.volume)}</td>
+      <td class="num">${r.cpc == null ? "—" : "$" + r.cpc.toFixed(2)}</td>
+      <td class="num">${r.competition_index ?? r.competition ?? "—"}</td>
+      <td class="num">${r.high_bid == null ? "—" : "$" + r.high_bid.toFixed(2)}</td>
+    </tr>`;
+    }).join("") + "</tbody></table>";
+  $(mountId).innerHTML = html;
+  $(mountId).querySelectorAll("th[data-k]").forEach(th => th.onclick = () => renderTable(rows, mountId, th.dataset.k === "keyword" ? null : th.dataset.k, meta));
+  if (meta) $(mountId).querySelectorAll("[data-star]").forEach(s => s.onclick = () => toggleStar(rows[Number(s.dataset.star)], meta, mountId, rows, null));
+}
+
+function renderShortlist() {
+  refreshShortlist().then(() => {
+    if (!shortlist.length) { $("mykw-list").innerHTML = '<p class="hint">Nothing starred yet — run a search and click ☆ next to interesting keywords.</p>'; return; }
+    $("mykw-list").innerHTML = `<table><thead><tr><th></th><th>Keyword</th><th>Volume</th><th>CPC</th><th>Comp.</th><th>Market</th><th style="width:220px">Target page on the site</th><th style="width:180px">Note</th></tr></thead><tbody>` +
+      shortlist.map(i => `<tr>
+        <td><span data-unstar="${i.id}" style="cursor:pointer;font-size:16px" title="Remove">★</span></td>
+        <td class="kw">${i.keyword}</td>
+        <td class="num">${fmtN(i.volume)}</td>
+        <td class="num">${i.cpc == null ? "—" : "$" + Number(i.cpc).toFixed(2)}</td>
+        <td class="num">${i.competition_index ?? "—"}</td>
+        <td>${LOC_NAMES[i.location_code] ?? i.location_code}${i.language_code ? " · " + i.language_code : ""}</td>
+        <td><input type="text" data-page="${i.id}" value="${(i.page || "").replace(/"/g, "&quot;")}" placeholder="/he/services/ocean-freight/" style="font-size:13px;padding:6px 9px"></td>
+        <td><input type="text" data-note="${i.id}" value="${(i.note || "").replace(/"/g, "&quot;")}" placeholder="" style="font-size:13px;padding:6px 9px"></td>
+      </tr>`).join("") + "</tbody></table>";
+    $("mykw-list").querySelectorAll("[data-unstar]").forEach(s => s.onclick = async () => {
+      await fetch("/api/shortlist/" + s.dataset.unstar, { method: "DELETE" }); renderShortlist();
+    });
+    const patch = (id, body) => fetch("/api/shortlist/" + id, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    $("mykw-list").querySelectorAll("[data-page]").forEach(inp => inp.onchange = () => patch(inp.dataset.page, { page: inp.value }));
+    $("mykw-list").querySelectorAll("[data-note]").forEach(inp => inp.onchange = () => patch(inp.dataset.note, { note: inp.value }));
+  });
+}
+
+$("mykw-csv").onclick = () => {
+  const esc = (v) => { const s = v == null ? "" : String(v); return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
+  const header = ["keyword", "monthly_volume", "cpc_usd", "competition_index", "market", "language", "target_page", "note"];
+  const lines = [header.join(",")].concat(shortlist.map(i =>
+    [i.keyword, i.volume, i.cpc, i.competition_index, LOC_NAMES[i.location_code] ?? i.location_code, i.language_code, i.page, i.note].map(esc).join(",")));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "my-keywords.csv"; a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+function downloadCSV(rows, filename) {
+  const esc = (v) => {
+    const s = v == null ? "" : String(v);
+    return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+  };
+  const header = ["keyword", "monthly_volume", "cpc_usd", "competition_index", "low_top_of_page_bid", "high_top_of_page_bid"];
+  const lines = [header.join(",")].concat(
+    rows.map(r => [r.keyword, r.volume, r.cpc, r.competition_index ?? r.competition, r.low_bid, r.high_bid].map(esc).join(","))
+  );
+  // UTF-8 BOM so Hebrew opens correctly in Excel
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function post(url, body) {
+  const r = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const data = await r.json();
+  if (!r.ok) throw new Error(data.error || ("HTTP " + r.status));
+  return data;
+}
+
+// ---- Volumes tab
+function costLineHTML(data, rerunId) {
+  if (data.cached) {
+    return `⚡ Served from history (saved ${fmtDate(data.cached_at)}) — DataForSEO: <b>$0.0000</b> · ${data.rows.length} rows · <a href="#" id="${rerunId}" style="color:var(--accent)">Re-run fresh (paid)</a>`;
+  }
+  const split = data.served_from_history
+    ? ` · ${data.served_from_history} from history (free), ${data.fetched} fetched fresh`
+    : "";
+  return `This run — DataForSEO API: <b>${fmt$(data.dataforseo_cost)}</b> · ${data.rows.length} rows${split} · saved to history`;
+}
+
+async function runVolumes(force) {
+  const keywords = $("kw-input").value.split("\n").map(s => s.trim()).filter(Boolean);
+  $("kw-err").style.display = "none"; $("kw-spin").style.display = "block"; $("kw-run").disabled = true;
+  try {
+    const data = await post("/api/volumes", {
+      keywords, location_code: $("kw-loc").value, language_code: $("kw-lang").value || undefined, force,
+    });
+    state.vol = data.rows; state.volRun = data.run_id;
+    state.volMeta = { loc: Number($("kw-loc").value), lang: $("kw-lang").value || null, runId: data.run_id };
+    renderTable(data.rows, "kw-results", "volume", state.volMeta);
+    addCost("dfs", data.dataforseo_cost);
+    $("kw-cost").innerHTML = costLineHTML(data, "kw-rerun");
+    $("kw-cost").style.display = "block";
+    const rerun = $("kw-rerun"); if (rerun) rerun.onclick = (e) => { e.preventDefault(); runVolumes(true); };
+    $("kw-reco").disabled = $("kw-csv").disabled = data.rows.length === 0;
+    if (data.reco) { $("kw-reco-out").textContent = data.reco.text; $("kw-reco-out").style.display = "block"; }
+    else { $("kw-reco-out").style.display = "none"; }
+  } catch (e) { $("kw-err").textContent = e.message; $("kw-err").style.display = "block"; }
+  $("kw-spin").style.display = "none"; $("kw-run").disabled = false;
+}
+$("kw-run").onclick = () => runVolumes(false);
+$("kw-reco").onclick = () => recommend("volumes", state.vol, $("kw-context").value, "kw-reco", "kw-reco-spin", "kw-reco-out", "kw-cost", state.volRun);
+$("kw-csv").onclick = () => downloadCSV(state.vol, "keyword-volumes.csv");
+
+// ---- Domain tab
+async function runDomain(force) {
+  $("dom-err").style.display = "none"; $("dom-spin").style.display = "block"; $("dom-run").disabled = true;
+  try {
+    const data = await post("/api/site-keywords", {
+      target: $("dom-input").value, location_code: $("dom-loc").value, language_code: $("dom-lang").value || undefined,
+      scope: $("dom-scope").value, force,
+    });
+    state.dom = data.rows; state.domRun = data.run_id;
+    state.domMeta = { loc: Number($("dom-loc").value), lang: $("dom-lang").value || null, runId: data.run_id };
+    renderTable(data.rows, "dom-results", "volume", state.domMeta);
+    addCost("dfs", data.dataforseo_cost);
+    $("dom-cost").innerHTML = costLineHTML(data, "dom-rerun");
+    $("dom-cost").style.display = "block";
+    const rerun = $("dom-rerun"); if (rerun) rerun.onclick = (e) => { e.preventDefault(); runDomain(true); };
+    $("dom-reco").disabled = $("dom-copy").disabled = $("dom-csv").disabled = data.rows.length === 0;
+    if (data.reco) { $("dom-reco-out").textContent = data.reco.text; $("dom-reco-out").style.display = "block"; }
+    else { $("dom-reco-out").style.display = "none"; }
+  } catch (e) { $("dom-err").textContent = e.message; $("dom-err").style.display = "block"; }
+  $("dom-spin").style.display = "none"; $("dom-run").disabled = false;
+}
+$("dom-run").onclick = () => runDomain(false);
+$("dom-reco").onclick = () => recommend("domain", state.dom, $("dom-context").value, "dom-reco", "dom-reco-spin", "dom-reco-out", "dom-cost", state.domRun);
+$("dom-csv").onclick = () => downloadCSV(state.dom, "domain-keyword-ideas.csv");
+
+// ---- History tab
+async function loadHistory() {
+  const data = await (await fetch("/api/history")).json();
+  if (!data.runs.length) { $("hist-list").innerHTML = '<p class="hint">No saved runs yet.</p>'; return; }
+  $("hist-list").innerHTML = `<table><thead><tr><th>Date</th><th>Type</th><th>Search</th><th>Rows</th><th>Cost</th><th>Claude</th><th></th></tr></thead><tbody>` +
+    data.runs.map(r => `<tr>
+      <td>${fmtDate(r.at)}</td><td>${r.type === "domain" ? "Domain" : "Volumes"}</td>
+      <td class="kw">${r.label}</td><td class="num">${r.rows}</td>
+      <td class="num">${fmt$(r.dataforseo_cost)}</td><td>${r.has_reco ? "✓ saved" : "—"}</td>
+      <td style="white-space:nowrap">
+        <button class="btn alt" style="padding:5px 14px;font-size:12px" data-open="${r.id}">Open</button>
+        <button class="btn alt" style="padding:5px 14px;font-size:12px" data-csv="${r.id}">CSV</button>
+        <button class="btn alt" style="padding:5px 14px;font-size:12px;color:var(--red)" data-del="${r.id}">Delete</button>
+      </td></tr>`).join("") + "</tbody></table>";
+  $("hist-list").querySelectorAll("[data-open]").forEach(b => b.onclick = () => openRun(b.dataset.open));
+  $("hist-list").querySelectorAll("[data-csv]").forEach(b => b.onclick = async () => {
+    const run = await (await fetch("/api/history/" + b.dataset.csv)).json();
+    downloadCSV(run.rows, (run.type === "domain" ? "domain-" : "volumes-") + run.id + ".csv");
+  });
+  $("hist-list").querySelectorAll("[data-del]").forEach(b => b.onclick = async () => {
+    await fetch("/api/history/" + b.dataset.del, { method: "DELETE" }); loadHistory();
+  });
+}
+
+async function openRun(id) {
+  const run = await (await fetch("/api/history/" + id)).json();
+  const payload = { rows: run.rows, dataforseo_cost: 0, cached: true, cached_at: run.at, run_id: run.id, reco: run.reco ?? null };
+  if (run.type === "domain") {
+    $("dom-input").value = run.params.target; $("dom-loc").value = run.params.location_code; $("dom-lang").value = run.params.language_code || ""; $("dom-scope").value = run.params.scope || "site";
+    state.dom = run.rows; state.domRun = run.id;
+    state.domMeta = { loc: run.params.location_code, lang: run.params.language_code, runId: run.id };
+    renderTable(run.rows, "dom-results", "volume", state.domMeta);
+    $("dom-cost").innerHTML = costLineHTML(payload, "dom-rerun"); $("dom-cost").style.display = "block";
+    const rr = $("dom-rerun"); if (rr) rr.onclick = (e) => { e.preventDefault(); runDomain(true); };
+    $("dom-reco").disabled = $("dom-copy").disabled = $("dom-csv").disabled = false;
+    if (run.reco) { $("dom-reco-out").textContent = run.reco.text; $("dom-reco-out").style.display = "block"; } else $("dom-reco-out").style.display = "none";
+    switchTab("dom");
+  } else {
+    $("kw-input").value = run.params.keywords.join("\n"); $("kw-loc").value = run.params.location_code; $("kw-lang").value = run.params.language_code || "";
+    state.vol = run.rows; state.volRun = run.id;
+    state.volMeta = { loc: run.params.location_code, lang: run.params.language_code, runId: run.id };
+    renderTable(run.rows, "kw-results", "volume", state.volMeta);
+    $("kw-cost").innerHTML = costLineHTML(payload, "kw-rerun"); $("kw-cost").style.display = "block";
+    const rr = $("kw-rerun"); if (rr) rr.onclick = (e) => { e.preventDefault(); runVolumes(true); };
+    $("kw-reco").disabled = $("kw-csv").disabled = false;
+    if (run.reco) { $("kw-reco-out").textContent = run.reco.text; $("kw-reco-out").style.display = "block"; } else $("kw-reco-out").style.display = "none";
+    switchTab("vol");
+  }
+}
+$("dom-copy").onclick = () => {
+  $("kw-input").value = state.dom.map(r => r.keyword).join("\n");
+  switchTab("vol");
+};
+
+// ---- Claude recommendation (shared)
+async function recommend(mode, rows, context, btnId, spinId, outId, costId, runId) {
+  $(btnId).disabled = true; $(spinId).style.display = "block"; $(outId).style.display = "none";
+  try {
+    const data = await post("/api/recommend", { mode, rows, context, run_id: runId });
+    $(outId).textContent = data.text;
+    $(outId).style.display = "block";
+    addCost("claude", data.claude_cost);
+    $(costId).innerHTML += ` · Claude (${data.model}): <b>${fmt$(data.claude_cost)}</b> (${data.usage.input_tokens.toLocaleString()} in / ${data.usage.output_tokens.toLocaleString()} out tokens)`;
+  } catch (e) {
+    $(outId).textContent = "Error: " + e.message;
+    $(outId).style.display = "block";
+  }
+  $(btnId).disabled = false; $(spinId).style.display = "none";
+}
+
+
+</script>
+<script src="agent-chat.js"></script>
+<script src="meta-agent.js"></script>
+<script src="social-agent.js"></script>
+<script src="spend.js"></script>
+<script src="home.js"></script>
+<script src="shell.js"></script>
+</body>
+</html>

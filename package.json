@@ -1,0 +1,17 @@
+{
+  "name": "digital-marketing-tools",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local hub of digital marketing tools \u2014 SEO keyword research, Meta Ads agent, social publishing agent",
+  "scripts": {
+    "start": "node server.js",
+    "meta": "meta-ads-agent\\.venv\\Scripts\\python meta-ads-agent\\serve.py",
+    "social": "social-agent\\.venv\\Scripts\\python social-agent\\serve.py"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.74.0",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0"
+  }
+}
